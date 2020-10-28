@@ -1,0 +1,9 @@
+try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("students.txt")))
+        {
+            Student stRestored=(Student) ois.readObject();
+            System.out.println(stRestored);
+        }
+        catch(Exception ex){
+
+            System.out.println(ex.getMessage());
+        }
