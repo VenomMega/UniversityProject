@@ -1,13 +1,15 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.io.Serializable;
 
 public class Interface implements Serializable {
     int count = -1;
-    ArrayList<Student> students = new ArrayList<>();
-    ArrayList<Teacher> teachers = new ArrayList<>();
+    List<Student> students = new ArrayList<>();
+    List<Teacher> teachers = new ArrayList<>();
     public void start() throws IOException, ClassNotFoundException {
         boolean action = true;
 
@@ -29,6 +31,9 @@ public class Interface implements Serializable {
 
 
     public void studentLog() throws IOException, ClassNotFoundException {
+        for (Student s: students){
+            System.out.println(s);
+        }
         System.out.println("Input student ID");
         Scanner sc = new Scanner(System.in);
         int ourId = sc.nextInt();
@@ -50,32 +55,22 @@ public class Interface implements Serializable {
                 }
                 else if (instr == 2){
                     System.out.println("Enter your current password");
-                    String newPassword = sc.next();
-                    if (newPassword.equals(ourPassword)){
+                    String currenPassword = sc.next();
+                    if (currenPassword.equals(ourPassword)){
                         System.out.println("Enter a new password: ");
+                        String newPassword = sc.next();
+                        System.out.println("Enter your password again");
                         String newPassword1 = sc.next();
                         if (newPassword1.equals(newPassword)){
-
-                            System.out.println(students.get(ourId).getPassword());
-                            File file = new File("students1.txt");
-                            File file2 = new File("students.txt");
-
-                            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false));
-                            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file2));
-                            ArrayList<Student> studentsRestored = (ArrayList<Student>) ois.readObject();
-                            for (int i=0;i<students.size();i++){
-                                oos.writeObject(studentsRestored);
-                                oos.writeObject(" ");
-                            }
-
-                            file.renameTo(file2);
-                            file.delete();
-
+                            students.get(ourId).setPassword(newPassword);
                         }
                     }
                 }
                 else if (instr == 3){
                     System.out.println(students.get(ourId).getMarks());
+
+                }
+                else if (instr == 4){
 
                 }
             }
@@ -85,7 +80,7 @@ public class Interface implements Serializable {
         }
     }
 
-    public void studentReg(){
+    public void studentReg() throws IOException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         count++;
         System.out.println("Input a first name");
@@ -104,18 +99,26 @@ public class Interface implements Serializable {
         System.out.println("Input a group");
         String group = sc.next();
 
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students.txt", true)))
-        {
-            Student st = new Student(count,fname,lname,age,number,status,login,password,group);
-            students.add(st);
-            oos.writeObject(st);
-            oos.writeObject(" ");
-            System.out.println("Student has been registered.");
-        }
-        catch(Exception ex){
+        FileOutputStream fos = new FileOutputStream("students.txt", true);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+ //       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students.txt", true));
+        FileWriter fw = new FileWriter( "students.txt" );
 
-            System.out.println(ex.getMessage());
-        }
+        Student st = new Student(count,fname,lname,age,number,status,login,password,group);
+        students.add(st);
+        oos.writeObject(st);
+        oos.write('\n');
+        oos.writeChars("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+        oos.write('\n');
+        oos.close();
+
+//        fw.write('\n');
+//        fw.write("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+//        fw.write('\n');
+//            oos.writeObject('\n');
+//            oos.writeObject("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+//            oos.writeObject('\n');
+        System.out.println("Student has been registered.");
 
         //int id String fname, String lname, int age, String number, int status, String login, String password, String group
     }
