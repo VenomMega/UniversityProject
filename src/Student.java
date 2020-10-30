@@ -38,11 +38,6 @@ public class Student extends User {
     }
 
     @Override
-    public void changePassword(String newPassword) {
-        super.changePassword(newPassword);
-    }
-
-    @Override
     public String toString() {
         return "Student{" + "ID: " + super.getId() +
                 " Name: '" + super.getFname() + '\'' +

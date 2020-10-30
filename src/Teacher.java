@@ -30,4 +30,11 @@ public class Teacher extends User {
     public void setGrades(ArrayList<String> grades) {
         this.grades = grades;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" + super.toString() + "subject='" + subject + '\'' +
+                ", grades=" + grades +
+                '}';
+    }
 }

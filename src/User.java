@@ -87,8 +87,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return "id=" + id +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", age=" + age +
@@ -97,8 +96,5 @@ public class User implements Serializable {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-    public void changePassword(String newPassword){
-        this.password = newPassword;
     }
 }
