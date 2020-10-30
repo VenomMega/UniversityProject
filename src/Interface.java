@@ -303,6 +303,18 @@ public class Interface implements Serializable {
                             try {
                                 System.out.println("Input a new login");
                                 String newLogin = sc.next();
+                                for (int k = 0; k < teachers.size(); k++){
+                                    while (newLogin.equals(teachers.get(k).getLogin())){
+                                        System.out.println("Input another login");
+                                        newLogin = sc.next();
+                                    }
+                                }
+                                for (int l = 0; l < students.size(); l++){
+                                    while (newLogin.equals(students.get(l).getLogin())){
+                                        System.out.println("Input another login");
+                                        newLogin = sc.next();
+                                    }
+                                }
                                 teachers.get(teachId).setLogin(newLogin);
                                 System.out.println("Login successfull changed");
                                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("teachers.txt", false));
@@ -316,7 +328,25 @@ public class Interface implements Serializable {
                             }
                         }
                         if (instr2 == 2){
-                            
+                            for (Teacher teacher: teachers){
+                                System.out.println(teacher.toString1());
+                            }
+                            System.out.println("Input a teacher's ID");
+                            int teachId = sc.nextInt();
+                            try {
+                                System.out.println("Input a new password");
+                                String newPassword = sc.next();
+                                teachers.get(teachId).setPassword(newPassword);
+                                System.out.println("Password successfull changed");
+                                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("teachers.txt", false));
+                                oos.writeObject(teachers);
+                            } catch (IndexOutOfBoundsException e) {
+                                e.printStackTrace();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 //                        int id, String fname, String lname, int age, String number, int status, String login, String password, String subject, ArrayList<String> grades
                     }
