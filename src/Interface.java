@@ -301,10 +301,10 @@ public class Interface implements Serializable {
                             System.out.println("Input a teacher's ID");
                             int teachId = sc.nextInt();
                             try {
-                                System.out.println("Input a new password");
-                                String newPassword = sc.next();
-                                teachers.get(teachId).setPassword(newPassword);
-                                System.out.println("Password successfull changed");
+                                System.out.println("Input a new login");
+                                String newLogin = sc.next();
+                                teachers.get(teachId).setLogin(newLogin);
+                                System.out.println("Login successfull changed");
                                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("teachers.txt", false));
                                 oos.writeObject(teachers);
                             } catch (IndexOutOfBoundsException e) {
