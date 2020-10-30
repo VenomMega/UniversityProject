@@ -136,7 +136,9 @@ public class Interface implements Serializable {
         ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
         students = (ArrayList<Student>) objectInputStream.readObject();
         for (Student student: students){
-            System.out.println(student.toString1());
+            if (student.getStatus() != 0){
+                System.out.println(student.toString1());
+            } else continue;
         }
         System.out.println("Input student login");
         Scanner sc = new Scanner(System.in);
@@ -272,6 +274,7 @@ public class Interface implements Serializable {
         String adminPass = sc.next();
         if (adminPass.equals("admin")){
             boolean action3 = true;
+            boolean action5 = true;
             System.out.println("Welcome my dear admin <3");
             System.out.println("Teachers: ");
             for (Teacher teacher : teachers) {
@@ -348,7 +351,112 @@ public class Interface implements Serializable {
                                 e.printStackTrace();
                             }
                         }
+                        if (instr2 == 3){
+                            for (Teacher teacher: teachers){
+                                System.out.println(teacher.toString1());
+                            }
+                            System.out.println("Input a teacher's ID");
+                            int teachId = sc.nextInt();
+                            try {
+                                System.out.println("Input a new status ([0] - banned [1] - default)");
+                                int newStatus = sc.nextInt();
+                                if (newStatus == 0 || newStatus == 1){
+                                    teachers.get(teachId).setStatus(newStatus);
+                                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("teachers.txt", false));
+                                    oos.writeObject(teachers);
+                                } else System.out.println("Invalid input");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (instr2 == 0){
+                            action4 = false;
+                        }
 //                        int id, String fname, String lname, int age, String number, int status, String login, String password, String subject, ArrayList<String> grades
+                    }
+                }
+                if (instr == 2){
+                    while (action5){
+                        System.out.println("[1] Change login\n" +
+                                "[2] Change password\n" +
+                                "[3] Change status\n" +
+                                "[4] ");
+                        int instr3 = sc.nextInt();
+                        if (instr3 == 1){
+                            for (Student student: students){
+                                System.out.println(student.toString1());
+                            }
+                            System.out.println("Input a student's ID");
+                            int studId = sc.nextInt();
+                            try {
+                                System.out.println("Input a new login");
+                                String newLogin = sc.next();
+                                for (int k = 0; k < teachers.size(); k++){
+                                    while (newLogin.equals(teachers.get(k).getLogin())){
+                                        System.out.println("Input another login");
+                                        newLogin = sc.next();
+                                    }
+                                }
+                                for (int l = 0; l < students.size(); l++){
+                                    while (newLogin.equals(students.get(l).getLogin())){
+                                        System.out.println("Input another login");
+                                        newLogin = sc.next();
+                                    }
+                                }
+                                students.get(studId).setLogin(newLogin);
+                                System.out.println("Login successfull changed");
+                                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students.txt", false));
+                                oos.writeObject(students);
+                            } catch (IndexOutOfBoundsException e) {
+                                e.printStackTrace();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (instr3 == 2){
+                            for (Student student: students){
+                                System.out.println(student.toString1());
+                            }
+                            System.out.println("Input a student's ID");
+                            int studId = sc.nextInt();
+                            try {
+                                System.out.println("Input a new password");
+                                String newPassword = sc.next();
+                                students.get(studId).setPassword(newPassword);
+                                System.out.println("Password successfull changed");
+                                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students.txt", false));
+                                oos.writeObject(students);
+                            } catch (IndexOutOfBoundsException e) {
+                                e.printStackTrace();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (instr3 == 3){
+                            for (Student student: students){
+                                System.out.println(student.toString1());
+                            }
+                            System.out.println("Input a student's ID");
+                            int studId = sc.nextInt();
+                            try {
+                                System.out.println("Input a new status ([0] - banned [1] - default)");
+                                int newStatus = sc.nextInt();
+                                if (newStatus == 0 || newStatus == 1){
+                                    students.get(studId).setStatus(newStatus);
+                                    System.out.println("Password successfull changed");
+                                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students.txt", false));
+                                } else System.out.println("Invalid input");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (instr3 == 0){
+                            action5 = false;
+                        }
                     }
                 }
             }
