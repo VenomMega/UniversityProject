@@ -293,6 +293,31 @@ public class Interface implements Serializable {
                                 "[2] Change password\n" +
                                 "[3] Change status\n" +
                                 "[4] ");
+                        int instr2 = sc.nextInt();
+                        if (instr2 == 1){
+                            for (Teacher teacher: teachers){
+                                System.out.println(teacher.toString1());
+                            }
+                            System.out.println("Input a teacher's ID");
+                            int teachId = sc.nextInt();
+                            try {
+                                System.out.println("Input a new password");
+                                String newPassword = sc.next();
+                                teachers.get(teachId).setPassword(newPassword);
+                                System.out.println("Password successfull changed");
+                                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("teachers.txt", false));
+                                oos.writeObject(teachers);
+                            } catch (IndexOutOfBoundsException e) {
+                                e.printStackTrace();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (instr2 == 2){
+                            
+                        }
 //                        int id, String fname, String lname, int age, String number, int status, String login, String password, String subject, ArrayList<String> grades
                     }
                 }
