@@ -97,4 +97,10 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    public String toString1() {
+        return "id=" + id +
+                ", login='" + login + '\'' +
+                '}';
+    }
 }

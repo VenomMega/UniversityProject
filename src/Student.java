@@ -37,10 +37,17 @@ public class Student extends User {
         super(id, fname, lname, age, number, status, login, password);
     }
 
-    @Override
-    public String toString() {
+    public String toString1() {
         return "Student{" + "ID: " + super.getId() +
                 " Name: '" + super.getFname() + '\'' +
+                '}';
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" + super.toString() +
+                "group='" + group + '\'' +
+                ", marks=" + marks +
                 '}';
     }
 }

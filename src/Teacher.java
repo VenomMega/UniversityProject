@@ -37,4 +37,9 @@ public class Teacher extends User {
                 ", grades=" + grades +
                 '}';
     }
+
+    @Override
+    public String toString1() {
+        return super.toString1();
+    }
 }
