@@ -39,7 +39,7 @@ public class Student extends User {
 
     public String toString1() {
         return "Student{" + "ID: " + super.getId() +
-                " Name: '" + super.getFname() + '\'' +
+                " Login: '" + super.getLogin() + '\'' +
                 '}';
     }
 
